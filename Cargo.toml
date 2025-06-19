@@ -1,0 +1,39 @@
+[package]
+name = "i2c-sensor-reading"
+version = "0.1.0"
+authors = [
+    "Sergio Gasquez <sergio.gasquez@gmail.com>",
+    "Tanks Transfeld <tanks.transfeld@ferrous-systems.com>",
+]
+edition = "2021"
+resolver = "2"
+
+[[bin]]
+name = "i2c-sensor-reading"
+harness = false # We can't use the default rust libtest harness for a crosscompile target
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug     = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
+[dependencies]
+anyhow = "1.0"
+esp-idf-svc = { version = "0.49.0", features = ["experimental", "alloc"] }
+icm42670 = "0.2.0" # This crate is already v1.0.0 compatible
+
+# The modern bus sharing crate for embedded-hal v1.0.0
+embedded-hal-bus = { version = "0.2.0", features = ["critical-section-mutex"] }
+critical-section = "1.1"
+shtcx = "1.0.0"
+
+
+
+
+
+[build-dependencies]
+embuild = "=0.33.0"
+
+
